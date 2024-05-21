@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+
+    <h:head>
+        <meta charset="UTF-8"/>
+        <title>Administracion de empleados</title>
+      <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+      <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css"/>
+    </h:head>
+    <h:body>
+
+        <h:form>
+            <p:menubar styleClass="bg-dark">
+                <p:menuitem styleClass="bg-light" value="Menú" icon="pi pi-fw pi-home" onclick="PF('sb').show()"/>
+            </p:menubar>
+
+            <p:sidebar widgetVar="sb">
+
+                <p:menu style="width: 250px;">
+                    <p:submenu label="Administración">
+                        <p:menuitem value="Empleados" outcome="employees" icon="pi pi-fw pi-users"/>
+                        <p:menuitem value="Departamentos" outcome="departments" icon="pi pi-fw pi-folder"/>
+                    </p:submenu>
+                </p:menu>
+
+            </p:sidebar>
+        </h:form>
+
+        <p:card styleClass="card-body d-flex flex-column align-items-center">
+            <p:messages globalOnly="true" closable="true">
+                <p:autoUpdate/>
+            </p:messages>
+
+            <ui:insert name="content"/>
+
+        </p:card>
+    </h:body>
+</f:view>
+</html>

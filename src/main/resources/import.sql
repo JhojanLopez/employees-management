@@ -1,0 +1,16 @@
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('ABC', 'Tecnologia', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('BBCD', 'Talento Humano', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('CBCE', 'Administrativo', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('DBCF', 'Seguridad', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('EBCG', 'Oficios varios', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('FBCH', 'Convivencia', CURRENT_DATE, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('GBCI', 'Gerencial', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('HBCJ', 'Deporte', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('IBCK', 'Recreacion', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO departamentos (codigo, nombre, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('JBCL', 'Financiero', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+INSERT INTO empleados (documento_tipo, documento_numero, nombres, apellidos, departamentos_id, ciudad, direccion, correo_electronico, telefono, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('CC', 1515151616, 'Jhohan', 'Lopez', 1, 'El cerrito', 'calle 1', 'jhojanlopez327@gmail.com', '3217679083', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO empleados (documento_tipo, documento_numero, nombres, apellidos, departamentos_id, ciudad, direccion, correo_electronico, telefono, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('CC', 2515151613, 'Mark', 'Gomez', 2, 'LA', 'AV 7', 'mark@gmail.com', '1111111', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO empleados (documento_tipo, documento_numero, nombres, apellidos, departamentos_id, ciudad, direccion, correo_electronico, telefono, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('CC', 3515151619, 'Leonel', 'Ramirez', 3, 'Medellin', 'AV 8', 'leo@gmail.com', '11112111', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO empleados (documento_tipo, documento_numero, nombres, apellidos, departamentos_id, ciudad, direccion, correo_electronico, telefono, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('CC', 4515151620, 'Jaime', 'Ortega', 4, 'Cali', 'AV 9', 'jaime@gmail.com', '11112111', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO empleados (documento_tipo, documento_numero, nombres, apellidos, departamentos_id, ciudad, direccion, correo_electronico, telefono, fecha_hora_creacion, fecha_hora_actualizacion) VALUES ('CC', 5515151621, 'Alex', 'Acosta', 5, 'Bogota', 'AV 10', 'alex@gmail.com', '11112111', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);

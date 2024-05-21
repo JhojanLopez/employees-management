@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/layouts/index.xhtml">
+
+    <ui:define name="content">
+
+        <p:card style="width: 1000px">
+            <h3 class="text-dark fw-bold mt-3 mb-4 text-center">Empleados</h3>
+
+            <div style="display: flex; flex-direction: row;">
+                <div style="flex: 1;">
+                    <h:form id="form-create-employee">
+                        <p:commandButton value="Crear empleado"
+                                         icon="pi pi-fw pi-plus"
+                                         styleClass="ui-button-success my-3"
+                                         action="#{employeeController.preSave()}"
+                                         onclick="PF('dialogForm').show()"
+                                         update="form-employee">
+                            <p:resetInput target="form-employee"/>
+                        </p:commandButton>
+                    </h:form>
+                </div>
+                <div style="align-self: flex-end;" class="p-field p-grid p-my-2">
+                    <h:form>
+
+                        <p:outputLabel for="research" styleClass="p-col-fixed"
+                                       style="width: 100px"> Buscar </p:outputLabel>
+                        <div class="p-col">
+                            <p:inputText id="research" value="#{employeeController.researchParam}" placeholder="Buscar">
+                                <p:ajax listener="#{employeeController.research}" event="keyup" update="form-table-employee"/>
+                            </p:inputText>
+
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+            <h:form id="form-table-employee">
+                <p:dataTable id="table" value="#{employeeController.employees}" var="employee"
+                             rendered="#{not empty employeeController.employees}"
+                             styleClass="table table-hover table-striped"
+                             paginator="true"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks}
+                             {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10"
+                             rows="5"
+                             paginatorPosition="bottom">
+
+                    <p:column headerText="Id" styleClass="text-center">
+                        <h:outputText value="#{employee.id}"/>
+                    </p:column>
+
+                    <p:column headerText="Numero de documento" styleClass="text-center">
+                        <h:outputText value="#{employee.documentNumber}"/>
+                    </p:column>
+
+                    <p:column headerText="Nombres" styleClass="text-center">
+                        <h:outputText value="#{employee.names}"/>
+                    </p:column>
+
+                    <p:column headerText="Apellidos" styleClass="text-center">
+                        <h:outputText value="#{employee.lastNames}"/>
+                    </p:column>
+
+                    <p:column headerText="Departamento" styleClass="text-center">
+                        <h:outputText value="#{employee.department.name}"/>
+                    </p:column>
+
+                    <p:column headerText=" ">
+                        <p:commandButton value="Editar"
+                                         action="#{employeeController.preUpdate(employee)}"
+                                         icon="pi pi-fw pi-pencil"
+                                         styleClass="ui-button-primary"
+                                         onclick="PF('dialogForm').show()"
+                                         update="form-employee">
+                            <p:resetInput target="form-employee"/>
+                        </p:commandButton>
+                    </p:column>
+                    <p:column headerText=" ">
+                        <p:commandButton styleClass="ui-button-danger"
+                                         value="Eliminar"
+                                         icon="pi pi-fw pi-trash"
+                                         action="#{employeeController.delete(employee)}"
+                                         update="form-table-employee, form-employee">
+                            <p:resetInput target="form-employee"/>
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+            </h:form>
+
+            <p:dialog header="Empleado"
+                      widgetVar="dialogForm" minHeight="300" minWidth="600"
+                      showEffect="fade" modal="true"
+                      height="500">
+                <h:form id="form-employee">
+                    <p:panel columns="3">
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Tipo de documento" for="documentType" class="p-col-fixed"
+                                           style="width: 200px"/>
+                            <div class="p-col">
+                                <p:selectOneMenu id="documentType" value="#{employeeController.employee.documentType}"
+                                                 style="width: 200px" styleClass="form-select">
+                                    <f:selectItem itemLabel=" " itemValue="#{null}"/>
+                                    <f:selectItems value="#{employeeController.documentTypes()}" var="type"
+                                                   itemLabel="#{type}"/>
+                                </p:selectOneMenu>
+                            </div>
+                            <div class="p-col">
+                                <p:message for="documentType" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Numero de documento" for="documentNumber" class="p-col-fixed"
+                                           style="width: 200px"/>
+                            <div class="p-col" style="width: 350px">
+                                <p:inputText id="documentNumber" value="#{employeeController.employee.documentNumber}"
+                                             label="Numero de documento"
+                                />
+                            </div>
+                            <div class="p-col">
+                                <p:message for="documentNumber" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Nombres" for="names" class="p-col-fixed" style="width: 200px"/>
+                            <div class="p-col" style="width: 350px">
+                                <p:inputText id="names" value="#{employeeController.employee.names}" label="Nombres"
+                                />
+                            </div>
+                            <div class="p-col">
+                                <p:message for="names" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Apellidos" for="lastNames" class="p-col-fixed" style="width: 200px"/>
+                            <div class="p-col" style="width: 350px">
+                                <p:inputText id="lastNames" value="#{employeeController.employee.lastNames}"
+                                             label="Apellidos"
+                                />
+                            </div>
+                            <div class="p-col">
+                                <p:message for="lastNames" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Codigo departamento" for="code" class="p-col-fixed"
+                                           style="width: 200px"/>
+                            <div class="p-col" style="width: 350px">
+                                <p:inputText id="code" value="#{employeeController.department.code}"
+                                             label="Codigo departamento"
+                                />
+                            </div>
+                            <div class="p-col">
+                                <p:message for="code" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Ciudad" for="city" class="p-col-fixed" style="width: 200px"/>
+                            <div class="p-col" style="width: 350px">
+                                <p:inputText id="city" value="#{employeeController.employee.city}" label="Ciudad"
+                                />
+                            </div>
+                            <div class="p-col">
+                                <p:message for="city" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Dirección" for="address" class="p-col-fixed" style="width: 200px"/>
+                            <div class="p-col" style="width: 350px">
+                                <p:inputText id="address" value="#{employeeController.employee.address}"
+                                             label="Dirección"
+                                />
+                            </div>
+                            <div class="p-col">
+                                <p:message for="address" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Correo" for="email" class="p-col-fixed" style="width: 200px"/>
+                            <div class="p-col" style="width: 350px">
+                                <p:inputText id="email" value="#{employeeController.employee.email}" label="Correo"
+                                             placeholder="example@mail.com"/>
+                            </div>
+                            <div class="p-col">
+                                <p:message for="email" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel value="Teléfono" for="telephoneNumber" class="p-col-fixed"
+                                           style="width: 200px"/>
+                            <div class="p-col" style="width: 350px">
+                                <p:inputText id="telephoneNumber" value="#{employeeController.employee.telephoneNumber}"
+                                             label="Teléfono"
+                                />
+                            </div>
+                            <div class="p-col">
+                                <p:message for="telephoneNumber" style="color:red;"/>
+                            </div>
+                        </div>
+                        <div class="p-field p-grid">
+                            <p:outputLabel rendered="#{employeeController.employee.id != null}" style="width: 200px"
+                                           value="Fecha creacion"
+                                           for="creation-date" class="p-col-fixed"/>
+                            <div class="p-col">
+                                <p:inputText rendered="#{employeeController.employee.id != null}" id="creation-date"
+                                             value="#{employeeController.employee.creationTime}"
+                                             label="creation-date" readonly="true"
+                                             style="width: 200px">
+                                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                                </p:inputText>
+                            </div>
+                        </div>
+
+                        <div class="p-field p-grid">
+                            <p:outputLabel rendered="#{employeeController.employee.id != null}"
+                                           value="Fecha actualizacion" for="update-date" class="p-col-fixed"
+                                           style="width: 200px"/>
+                            <div class="p-col">
+                                <p:inputText rendered="#{employeeController.employee.id != null}" id="update-date"
+                                             value="#{employeeController.employee.updateTime}"
+                                             label="update-date" readonly="true"
+                                             style="width: 200px">
+                                    <f:convertDateTime type="localDateTime" pattern="dd-MM-yyyy HH:mm:ss"/>
+                                </p:inputText>
+                            </div>
+                        </div>
+
+                    </p:panel>
+                    <h:inputHidden value="#{employeeController.employee.id}"/>
+
+                    <div class="text-center">
+                        <p:commandButton styleClass="ui-button-outlined ui-button-success mt-3 mx-3"
+                                         value="#{employeeController.employee.id == null ? 'Crear' : 'Editar'}"
+                                         icon="pi pi-fw pi-check"
+                                         action="#{employeeController.handleSaveOrUpdate()}"
+                                         update="form-table-employee, form-employee">
+                            <p:resetInput target="form-employee"/>
+                        </p:commandButton>
+                    </div>
+                </h:form>
+            </p:dialog>
+        </p:card>
+
+    </ui:define>
+</ui:composition>
